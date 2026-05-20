@@ -17,6 +17,10 @@ class ServiceProvider extends AddonServiceProvider
         Console\OptimizeExistingAssets::class,
     ];
 
+    protected $tags = [
+        Tags\ResponsiveImage::class,
+    ];
+
     public function bootAddon(): void
     {
         $this->mergeConfigFrom(

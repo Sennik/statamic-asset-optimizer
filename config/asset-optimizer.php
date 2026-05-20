@@ -127,4 +127,20 @@ return [
 
     'memory_limit' => '512M',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Responsive image defaults
+    |--------------------------------------------------------------------------
+    |
+    | Default widths and quality used by the {{ responsive_image }} Antlers
+    | tag. Each width generates one Glide-rendered derivative.
+    |
+    */
+
+    'responsive' => [
+        'widths' => [400, 800, 1200, 1600, 2000],
+        'quality' => 82,
+    ],
+
 ];
+
