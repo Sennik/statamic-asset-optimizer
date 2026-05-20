@@ -111,4 +111,20 @@ return [
 
     'log' => true,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Memory limit
+    |--------------------------------------------------------------------------
+    |
+    | Image decoding (especially with the GD driver) holds the entire
+    | uncompressed bitmap in memory. A 6000×4000 photo needs roughly
+    | 90 MB just for the raw pixels — well above PHP's default CLI
+    | memory_limit of 128M. We bump it for the duration of the work.
+    |
+    | Set to null to leave PHP's memory_limit untouched.
+    |
+    */
+
+    'memory_limit' => '512M',
+
 ];

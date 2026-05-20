@@ -18,6 +18,8 @@ class Optimizer
      */
     public function optimize(Asset $asset, bool $force = false, bool $dryRun = false): OptimizationResult
     {
+        $this->raiseMemoryLimit();
+
         $extension = strtolower($asset->extension() ?? '');
 
         $allowed = (array) config('asset-optimizer.formats', ['jpg', 'jpeg', 'png', 'webp']);
@@ -110,7 +112,7 @@ class Optimizer
                 changed: true,
                 reason: 'dry-run',
                 originalBytes: $originalSize,
-                newBytes: strlen($newBytes),
+                newBytes: \strlen($newBytes),
                 originalWidth: $originalWidth,
                 originalHeight: $originalHeight,
                 newWidth: $image->width(),
@@ -129,7 +131,7 @@ class Optimizer
             changed: true,
             reason: 'resized',
             originalBytes: $originalSize,
-            newBytes: strlen($newBytes),
+            newBytes: \strlen($newBytes),
             originalWidth: $originalWidth,
             originalHeight: $originalHeight,
             newWidth: $image->width(),
@@ -143,5 +145,25 @@ class Optimizer
             'imagick' => new ImagickDriver(),
             default => new GdDriver(),
         };
+    }
+
+    /**
+     * Raise PHP's memory_limit to the configured value (once per request).
+     * Image decoding holds the full uncompressed bitmap in memory; a 6000×4000
+     * photo needs ~90 MB which blows past the default 128M CLI limit.
+     */
+    private function raiseMemoryLimit(): void
+    {
+        static $applied = false;
+        if ($applied) {
+            return;
+        }
+
+        $limit = config('asset-optimizer.memory_limit');
+        if ($limit !== null) {
+            ini_set('memory_limit', (string) $limit);
+        }
+
+        $applied = true;
     }
 }
