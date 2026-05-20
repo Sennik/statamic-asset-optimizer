@@ -1,0 +1,42 @@
+{
+    "name": "sennik/statamic-asset-optimizer",
+    "description": "Resize en optimaliseer afbeeldingen automatisch bij upload in Statamic. Werkt voor landscape, portrait en square via longest-edge sizing.",
+    "type": "statamic-addon",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sennik",
+            "homepage": "https://github.com/Sennik"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "statamic/cms": "^5.0|^6.0",
+        "intervention/image": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sennik\\AssetOptimizer\\": "src/"
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "Asset Optimizer",
+            "description": "Automatische resize en compressie van geuploade afbeeldingen.",
+            "developer": "Sennik",
+            "url": "https://github.com/Sennik/statamic-asset-optimizer"
+        },
+        "laravel": {
+            "providers": [
+                "Sennik\\AssetOptimizer\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "pixelfear/composer-dist-plugin": true
+        }
+    }
+}
