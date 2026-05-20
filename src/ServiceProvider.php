@@ -13,6 +13,10 @@ class ServiceProvider extends AddonServiceProvider
         ],
     ];
 
+    protected $commands = [
+        Console\OptimizeExistingAssets::class,
+    ];
+
     public function bootAddon(): void
     {
         $this->mergeConfigFrom(

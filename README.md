@@ -78,6 +78,31 @@ Aspect ratio is always preserved.
 
 WebP encoding requires GD compiled with WebP support, or Imagick. Most modern PHP installations have one or both available.
 
+## Optimising existing assets
+
+The listener only fires for new uploads. To process images that were already on disk before you installed the addon, run:
+
+```bash
+php artisan asset-optimizer:run
+```
+
+Options:
+
+| Flag | Effect |
+|---|---|
+| `--container=handle` | Limit to specific container(s). Repeat for multiple. |
+| `--dry-run` | Show what would change without writing files. |
+| `--force` | Process files smaller than `min_size_bytes` too. |
+| `-v` | Verbose: log every file that gets resized. |
+
+Example run on production:
+
+```bash
+php artisan asset-optimizer:run --dry-run -v
+```
+
+The summary table at the end shows total bytes before/after and how much you saved.
+
 ## Logging
 
 When `log` is enabled, every optimisation writes a line to `storage/logs/` like:
